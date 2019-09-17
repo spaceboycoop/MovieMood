@@ -1,0 +1,50 @@
+* {
+    background-color: white;
+    position:relative;
+}
+.container-fluid{
+    height:20vh;
+}
+
+.headerRow {
+    margin:0;
+    color:white;
+    font-weight: bold;
+}
+
+.mainContent {
+    min-height:70vh;
+}
+
+#image {
+    width:100%;
+}
+
+#submitButton {
+    font-weight:bold;
+    color:dodgerblue
+}
+
+#Character {
+    padding: 0;
+}
+
+#footer{
+    height:10vh;
+    text-align: center;
+    background-color:dodgerblue;
+    color:white
+}
+
+.jumbotron {
+    background-color:dodgerblue;
+}
+
+#header {
+    padding: 0;
+}
+
+.headerRow{
+    background-color: dodgerblue;
+}
+
