@@ -8,7 +8,16 @@
     <title>Bootstrap Wireframe</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,9 +62,8 @@
                     <div class="col-lg-2"></div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-8 text-center mx-auto shadow p-3 mb-4 bg-lightgray rounded">
-                        <h3>This is the placeholder for movies</h3>
+                <div class="row card-columns">
+                    <div id="movies" class="col-md-12 text-center mx-auto shadow p-3 mb-4 bg-lightgray rounded">
                     </div>
                 </div>
             </div>
@@ -64,7 +72,11 @@
                 Made by 4 happy faces
             </h4>
         </div>
+
     </main>
+
+
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
