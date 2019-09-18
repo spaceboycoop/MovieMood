@@ -18,7 +18,7 @@
 // Bald = War
 
 const moviedb_api_key = '9c78553cb3547d0c21d49df380da12a6';
-const face_api_key = "1164a87de384422aaa3ca0e1ee7c6f3d";
+const face_api_key = '1164a87de384422aaa3ca0e1ee7c6f3d';
 
 const moviedb_baseurl = 'https://api.themoviedb.org/3';
 const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0';
