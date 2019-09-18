@@ -18,14 +18,12 @@
 // Bald = War
 
 const moviedb_api_key = '9c78553cb3547d0c21d49df380da12a6';
-const face_api_key = "1164a87de384422aaa3ca0e1ee7c6f3d";
+const face_api_key = '1164a87de384422aaa3ca0e1ee7c6f3d';
 
 const moviedb_baseurl = 'https://api.themoviedb.org/3';
 const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0';
 
-var titles = [];
-var poster = [];
-var overviews = [];
+var voteAverages = [];
 
 let faceData;
 let img_url;
@@ -42,24 +40,30 @@ $(document).ready(function() {
         getFaceData(img_url);
     });
 
-    getMovieData('Horror','Romance');
+    $('#imageInput').on('change', getFaceData);
+
+    //getMovieData('Horror','Romance');
 });
 
-const getCardItem = function(i) {
+const getMovieCard = function(movie) {
     console.log('getCardItem');
-    var $overlay = $(`<div class="view overlay">`);
-    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
-    var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
+    let $overlay = $(`<div class="view overlay">`);
+    let $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
+    let $image = $(`<img class="card-img-top gif mb-3 img-fluid" src="https://image.tmdb.org/t/p/original${movie.poster_path}">`);
+    $image.css('height', '300px');
     $overlay.append($image);
-    var $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
-    $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[i]}</p>`);
+    let $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
+    $text.append(`<p class="white-text p-2 align-middle bg-transparent">${movie.overview}</p>`);
     $text.css('height', '300px');
     $overlay.append($text);
-    var $cardBody = $(`<div class="card-body">`);
+    let $cardBody = $(`<div class="card-body">`);
     $cardBody.append($overlay);
-    $cardBody.append(`<h5 class="card-title">${titles[i]}</h5>`);
+    $cardBody.append(`<h5 class="card-title">${movie.title}</h5>`);
     $cardItem.append($cardBody);
-
+    var $cardFooter = $('<div class="card-footer">');
+    var $vote = $(`<small class-"text-muted bg-transparent">Vote Average ${movie.vote_averages}<small>`)
+    $cardFooter.append($vote);
+    $cardItem.append($cardFooter);
     return $cardItem;
 };
 
@@ -86,8 +90,6 @@ const getMovieData = function(genre1, genre2) {
             }
         });
 
-        console.log(response);
-
         let endpoint = 'discover/movie';
         let params = {
             with_genres: `${genre1},${genre2}`,
@@ -108,17 +110,15 @@ const getMovieData = function(genre1, genre2) {
         })
         .done(response => {
             response.results.forEach((result, i) => {
-                overviews.push(result.overview);
-                titles.push(result.title);
-                poster.push(`https://image.tmdb.org/t/p/original${result.poster_path}`);
-                $('#movies').append(getCardItem(i));
+                $('#movies').append(getMovieCard(result));
             });
         });
     });
 };
 
-const getFaceData = function(source_url) {
+const getFaceData = function(e) {
     const endpoint = 'detect';
+    var imageFile = e.target.files[0];
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
@@ -128,19 +128,22 @@ const getFaceData = function(source_url) {
     };
     $.ajax({
         url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
-        contentType: 'application/json',
+        contentType: 'application/octet-stream',
+        dataType: 'json',
         headers: {
             'Ocp-Apim-Subscription-Key' : face_api_key
         },
         method: "POST",
-        data: JSON.stringify({ url: source_url })
+        cache:false,
+        processData: false,
+        data: imageFile
     })
-        .then(function (data) {
-            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
-            console.log(data);
-            faceData = data;
-        })
-        .fail(function (error) {
-            console.log(error);
-        });
+    .then(function (data) {
+        console.log(data);
+        $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+        faceData = data;
+    })
+    .fail(function (error) {
+        console.log(error);
+    });
 };
