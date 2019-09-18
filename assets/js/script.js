@@ -48,7 +48,6 @@ $(document).ready(function() {
 });
 
 const getCardItem = function(i) {
-    console.log('getCardItem');
     var $overlay = $(`<div class="view overlay">`);
     var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
@@ -88,8 +87,6 @@ const getMovieData = function(genre1, genre2) {
             }
         });
 
-        console.log(response);
-
         let endpoint = 'discover/movie';
         let params = {
             with_genres: `${genre1},${genre2}`,
@@ -119,9 +116,9 @@ const getMovieData = function(genre1, genre2) {
     });
 };
 
-const getFaceData = function() {
+const getFaceData = function(e) {
     const endpoint = 'detect';
-    var imageFile = $('#imageInput').get().files[0];
+    var imageFile = e.target.files[0];
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
@@ -129,22 +126,24 @@ const getFaceData = function() {
             "age,gender,headPose,smile,facialHair,glasses,emotion," +
             "hair,makeup,occlusion,accessories,blur,exposure,noise"
     };
-
     $.ajax({
         url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
-        contentType: 'application/json',
+        contentType: 'application/octet-stream',
+        dataType: 'json',
         headers: {
             'Ocp-Apim-Subscription-Key' : face_api_key
         },
         method: "POST",
+        cache:false,
+        processData: false,
         data: imageFile
     })
-        .then(function (data) {
-            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
-            console.log(data);
-            faceData = data;
-        })
-        .fail(function (error) {
-            console.log(error);
-        });
+    .then(function (data) {
+        console.log(data);
+        $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+        faceData = data;
+    })
+    .fail(function (error) {
+        console.log(error);
+    });
 };
