@@ -102,7 +102,7 @@ const getCardItem = function(index) {
 
 let faceData;
 
-function processImage(source_url) {
+function getFaceData(source_url) {
     const endpoint = 'detect';
     var params = {
         "returnFaceId": "true",
