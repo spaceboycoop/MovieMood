@@ -1,26 +1,3 @@
-let faceData;
-let img_url;
-
-$('#submit').click(function () {
-
-    img_url = $('#imageURL').val();
-    $('.imageHolder').html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
-    alt="Responsive image" id="image"></img>`);
-    processImage(img_url);
-
-});
-
-$('#fileButton').on('click', openDialog);
-
-function openDialog() {
-    img_url = $('#file').click();
-}
-
-$('#fileButton').on('click', openDialog);
-
-function openDialog() {
-    img_url = $('#file').click();
-}
 // --- GENRE OPTIONS ---
 // Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History,
 // Horror, Music, Mystery, Romance, Science, Fiction, TV Movie, Thriller, War, Western
@@ -49,6 +26,22 @@ const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/
 var titles = [];
 var poster = [];
 var overviews = [];
+
+let faceData;
+let img_url;
+
+$(document).ready(function() {
+    $('#fileButton').on('click', function() {
+        img_url = $('#file').click();
+    });
+
+    $('#submit').click(function () {
+        img_url = $('#imageURL').val();
+        $('.imageHolder').html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
+    alt="Responsive image" id="image">`);
+        getFaceData(img_url);
+    });
+});
 
 const getMovieData = function(genre1, genre2) {
     let endpoint = 'genre/movie/list';
