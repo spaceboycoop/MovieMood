@@ -18,7 +18,7 @@
 // Bald = War
 
 const moviedb_api_key = '9c78553cb3547d0c21d49df380da12a6';
-const face_api_key = "1164a87de384422aaa3ca0e1ee7c6f3d";
+const face_api_key = '1164a87de384422aaa3ca0e1ee7c6f3d';
 
 const moviedb_baseurl = 'https://api.themoviedb.org/3';
 const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0';
@@ -38,7 +38,9 @@ $(document).ready(function() {
         getFaceData(img_url);
     });
 
-    getMovieData('Horror','Romance');
+    $('#imageInput').on('change', getFaceData);
+
+    //getMovieData('Horror','Romance');
 });
 
 const getMovieCard = function(movie) {
@@ -82,8 +84,6 @@ const getMovieData = function(genre1, genre2) {
             }
         });
 
-        console.log(response);
-
         let endpoint = 'discover/movie';
         let params = {
             with_genres: `${genre1},${genre2}`,
@@ -110,8 +110,9 @@ const getMovieData = function(genre1, genre2) {
     });
 };
 
-const getFaceData = function(source_url) {
+const getFaceData = function(e) {
     const endpoint = 'detect';
+    var imageFile = e.target.files[0];
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
@@ -121,19 +122,22 @@ const getFaceData = function(source_url) {
     };
     $.ajax({
         url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
-        contentType: 'application/json',
+        contentType: 'application/octet-stream',
+        dataType: 'json',
         headers: {
             'Ocp-Apim-Subscription-Key' : face_api_key
         },
         method: "POST",
-        data: JSON.stringify({ url: source_url })
+        cache:false,
+        processData: false,
+        data: imageFile
     })
-        .then(function (data) {
-            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
-            console.log(data);
-            faceData = data;
-        })
-        .fail(function (error) {
-            console.log(error);
-        });
+    .then(function (data) {
+        console.log(data);
+        $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+        faceData = data;
+    })
+    .fail(function (error) {
+        console.log(error);
+    });
 };
