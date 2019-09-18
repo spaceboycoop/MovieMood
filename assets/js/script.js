@@ -1,3 +1,26 @@
+let faceData;
+let img_url;
+
+$('#submit').click(function () {
+
+    img_url = $('#imageURL').val();
+    $('.imageHolder').html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
+    alt="Responsive image" id="image"></img>`);
+    processImage(img_url);
+
+});
+
+$('#fileButton').on('click', openDialog);
+
+function openDialog() {
+    img_url = $('#file').click();
+}
+
+$('#fileButton').on('click', openDialog);
+
+function openDialog() {
+    img_url = $('#file').click();
+}
 // --- GENRE OPTIONS ---
 // Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History,
 // Horror, Music, Mystery, Romance, Science, Fiction, TV Movie, Thriller, War, Western
@@ -49,9 +72,9 @@ const getMovieData = function(genre1, genre2) {
                 genre2 = genre.id;
             }
         });
-        
+
         console.log(response);
-        
+
         let endpoint = 'discover/movie';
         let params = {
             with_genres: `${genre1},${genre2}`,
@@ -113,17 +136,18 @@ const getFaceData = function(source_url) {
     $.ajax({
         url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
         contentType: 'application/json',
-        headers: { 
+        headers: {
             'Ocp-Apim-Subscription-Key' : face_api_key
         },
         method: "POST",
         data: JSON.stringify({ url: source_url })
     })
-    .then(function (data) {
-        console.log(data);
-        faceData = data;
-    })
-    .fail(function (error) {
-        console.log(error);
-    });
+        .then(function (data) {
+            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+            console.log(data);
+            faceData = data;
+        })
+        .fail(function (error) {
+            console.log(error);
+        });
 };
