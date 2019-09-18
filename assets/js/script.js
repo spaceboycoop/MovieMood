@@ -27,62 +27,59 @@ var titles = [];
 var poster = [];
 var overviews = [];
 
-let genre1 = "Thriller";
-let genre2 = "Comedy";
-
-let endpoint = 'genre/movie/list';
-let params = {
-    language: 'en-US',
-    api_key: moviedb_api_key
-};
-var genreSettings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `${moviedb_baseurl}/${moviedb_endpoint}?${$.params(params)}`,
-    "method": "GET",
-    "headers": {},
-    "data": "{}"
-};
-
-$.ajax(genreSettings).done(response => () {
-    for (let i = 0; i < response.genres.length; i++) {
-        if (genre1 == response.genres[i].name) {
-            genre1 = response.genres[i].id;
-        } else if (genre2 == response.genres[i].name) {
-            genre2 = response.genres[i].id;
-        }
-    }
-    console.log(response);
-    
-    let endpoint = 'discover/movie';
+const getMovieData = (genre1, genre2) => {
+    let endpoint = 'genre/movie/list';
     let params = {
-        with_genres: `${genre1},${genre2}`,
-        page: 1,
-        include_video: false,
-        include_adult: false,
-        sort_by: 'popularity.desc',
         language: 'en-US',
         api_key: moviedb_api_key
     };
-    var movieSettings = {
-        "url": `${baseURL}/${endpoint}?${$.param($params)}`,
+    $.ajax({
         "async": true,
         "crossDomain": true,
+        "url": `${moviedb_baseurl}/${endpoint}?${$.params(params)}`,
         "method": "GET",
         "headers": {},
         "data": "{}"
-    };
-
-    $.ajax(movieSettings).done(function (response) {
-        console.log(response);
-        for (let i = 0; i < response.results.length; i++) {
-            overviews.push(response.results[i].overview);
-            titles.push(response.results[i].title);
-            poster.push(`https://image.tmdb.org/t/p/original${response.results[i].poster_path}`);
-            $('#movies').append(getCardItem(i));
+    })
+    .done(response => {
+        for (let i = 0; i < response.genres.length; i++) {
+            if (genre1 == response.genres[i].name) {
+                genre1 = response.genres[i].id;
+            } else if (genre2 == response.genres[i].name) {
+                genre2 = response.genres[i].id;
+            }
         }
-    });
-});
+        console.log(response);
+        
+        let endpoint = 'discover/movie';
+        let params = {
+            with_genres: `${genre1},${genre2}`,
+            page: 1,
+            include_video: false,
+            include_adult: false,
+            sort_by: 'popularity.desc',
+            language: 'en-US',
+            api_key: moviedb_api_key
+        };
+        $.ajax({
+            "url": `${baseURL}/${endpoint}?${$.param($params)}`,
+            "async": true,
+            "crossDomain": true,
+            "method": "GET",
+            "headers": {},
+            "data": "{}"
+        })
+        .done(response => {
+            console.log(response);
+            for (let i = 0; i < response.results.length; i++) {
+                overviews.push(response.results[i].overview);
+                titles.push(response.results[i].title);
+                poster.push(`https://image.tmdb.org/t/p/original${response.results[i].poster_path}`);
+                $('#movies').append(getCardItem(i));
+            }
+        });
+    }
+}
 
 const getCardItem = function(index) {
     var $overlay = $(`<div class = "view overlay"</div>`);

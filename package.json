@@ -1,0 +1,22 @@
+{
+  "name": "moviemood",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spaceboycoop/MovieMood.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spaceboycoop/MovieMood/issues"
+  },
+  "homepage": "https://github.com/spaceboycoop/MovieMood#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0"
+  }
+}
