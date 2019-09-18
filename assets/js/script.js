@@ -42,7 +42,9 @@ $(document).ready(function() {
         getFaceData(img_url);
     });
 
-    getMovieData('Horror','Romance');
+    $('#imageInput').on('change', getFaceData);
+
+    //getMovieData('Horror','Romance');
 });
 
 const getCardItem = function(i) {
@@ -117,8 +119,9 @@ const getMovieData = function(genre1, genre2) {
     });
 };
 
-const getFaceData = function(source_url) {
+const getFaceData = function() {
     const endpoint = 'detect';
+    var imageFile = $('#imageInput').get().files[0];
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
@@ -126,6 +129,7 @@ const getFaceData = function(source_url) {
             "age,gender,headPose,smile,facialHair,glasses,emotion," +
             "hair,makeup,occlusion,accessories,blur,exposure,noise"
     };
+
     $.ajax({
         url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
         contentType: 'application/json',
@@ -133,7 +137,7 @@ const getFaceData = function(source_url) {
             'Ocp-Apim-Subscription-Key' : face_api_key
         },
         method: "POST",
-        data: JSON.stringify({ url: source_url })
+        data: imageFile
     })
         .then(function (data) {
             $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
