@@ -27,7 +27,7 @@ var titles = [];
 var poster = [];
 var overviews = [];
 
-const getMovieData = (genre1, genre2) => {
+const getMovieData = function(genre1, genre2) {
     let endpoint = 'genre/movie/list';
     let params = {
         language: 'en-US',
@@ -80,12 +80,12 @@ const getMovieData = (genre1, genre2) => {
             });
         });
     });
-}
+};
 
-const getCardItem = index => {
+const getCardItem = function(i) {
     var $overlay = $(`<div class="view overlay">`);
     var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
-    var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[index]}>`);
+    var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
     $overlay.append($image);
     var $text = $(`<div class="mask rgba-cyan-strong overflow-auto"></div>`);
     $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[index]}</p>`);
@@ -93,7 +93,7 @@ const getCardItem = index => {
     $overlay.append($text);
     var $cardBody = $(`<div class="card-body">`);
     $cardBody.append($overlay);
-    $cardBody.append(`<h5 class="card-title">${titles[index]}</h5>`);
+    $cardBody.append(`<h5 class="card-title">${titles[i]}</h5>`);
     $cardItem.append($cardBody);
 
     return $cardItem;
@@ -126,4 +126,4 @@ const getFaceData = function(source_url) {
     .fail(function (error) {
         console.log(error);
     });
-}
+};
