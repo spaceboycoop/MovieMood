@@ -84,14 +84,14 @@ const getMovieData = (genre1, genre2) => {
 
 const getCardItem = index => {
     var $overlay = $(`<div class="view overlay">`);
-    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;"></div>`);
+    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[index]}>`);
     $overlay.append($image);
     var $text = $(`<div class="mask rgba-cyan-strong overflow-auto"></div>`);
     $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[index]}</p>`);
     $text.css('height', '300px');
     $overlay.append($text);
-    var $cardBody = $(`<div class="card-body"></div>`);
+    var $cardBody = $(`<div class="card-body">`);
     $cardBody.append($overlay);
     $cardBody.append(`<h5 class="card-title">${titles[index]}</h5>`);
     $cardItem.append($cardBody);
