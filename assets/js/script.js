@@ -41,7 +41,7 @@ $(document).ready(function() {
     getMovieData('Horror','Romance');
 });
 
-const getCardItem = function(movie) {
+const getMovieCard = function(movie) {
     console.log('getCardItem');
     let $overlay = $(`<div class="view overlay">`);
     let $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
@@ -104,7 +104,7 @@ const getMovieData = function(genre1, genre2) {
         })
         .done(response => {
             response.results.forEach((result, i) => {
-                $('#movies').append(getCardItem(result));
+                $('#movies').append(getMovieCard(result));
             });
         });
     });
