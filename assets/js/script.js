@@ -42,13 +42,14 @@ const getMovieData = (genre1, genre2) => {
         "data": "{}"
     })
     .done(response => {
-        for (let i = 0; i < response.genres.length; i++) {
-            if (genre1 == response.genres[i].name) {
-                genre1 = response.genres[i].id;
-            } else if (genre2 == response.genres[i].name) {
-                genre2 = response.genres[i].id;
+        response.genres.forEach((genre) => {
+            if (genre1 == genre.name) {
+                genre1 = genre.id;
+            } else if (genre2 == genre.name) {
+                genre2 = genre.id;
             }
-        }
+        });
+
         console.log(response);
         
         let endpoint = 'discover/movie';
@@ -62,7 +63,7 @@ const getMovieData = (genre1, genre2) => {
             api_key: moviedb_api_key
         };
         $.ajax({
-            "url": `${baseURL}/${endpoint}?${$.param($params)}`,
+            "url": `${baseURL}/${endpoint}?${$.param(params)}`,
             "async": true,
             "crossDomain": true,
             "method": "GET",
@@ -71,18 +72,18 @@ const getMovieData = (genre1, genre2) => {
         })
         .done(response => {
             console.log(response);
-            for (let i = 0; i < response.results.length; i++) {
-                overviews.push(response.results[i].overview);
-                titles.push(response.results[i].title);
-                poster.push(`https://image.tmdb.org/t/p/original${response.results[i].poster_path}`);
+            response.results.forEach((result, i) => {
+                overviews.push(result.overview);
+                titles.push(result.title);
+                poster.push(`https://image.tmdb.org/t/p/original${result.poster_path}`);
                 $('#movies').append(getCardItem(i));
-            }
+            });
         });
-    }
+    });
 }
 
-const getCardItem = function(index) {
-    var $overlay = $(`<div class = "view overlay"</div>`);
+const getCardItem = index => {
+    var $overlay = $(`<div class="view overlay">`);
     var $cardItem = $(`<div class="card mr-3" style="width: 15rem;"></div>`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[index]}>`);
     $overlay.append($image);
@@ -100,7 +101,7 @@ const getCardItem = function(index) {
 
 let faceData;
 
-function getFaceData(source_url) {
+const getFaceData = function(source_url) {
     const endpoint = 'detect';
     var params = {
         "returnFaceId": "true",
@@ -110,7 +111,7 @@ function getFaceData(source_url) {
             "hair,makeup,occlusion,accessories,blur,exposure,noise"
     };
     $.ajax({
-        url: `${uriBase}/${endpoint}?${$.param(params)}`,
+        url: `${faceapi_baseurl}/${endpoint}?${$.param(params)}`,
         contentType: 'application/json',
         headers: { 
             'Ocp-Apim-Subscription-Key' : face_api_key
@@ -125,4 +126,4 @@ function getFaceData(source_url) {
     .fail(function (error) {
         console.log(error);
     });
-};
+}
