@@ -49,7 +49,7 @@ const getMovieData = (genre1, genre2) => {
                 genre2 = genre.id;
             }
         });
-
+        
         console.log(response);
         
         let endpoint = 'discover/movie';
@@ -63,7 +63,7 @@ const getMovieData = (genre1, genre2) => {
             api_key: moviedb_api_key
         };
         $.ajax({
-            "url": `${baseURL}/${endpoint}?${$.param(params)}`,
+            "url": `${baseURL}/${endpoint}?${$.param($params)}`,
             "async": true,
             "crossDomain": true,
             "method": "GET",
@@ -84,13 +84,13 @@ const getMovieData = (genre1, genre2) => {
 
 const getCardItem = index => {
     var $overlay = $(`<div class="view overlay">`);
-    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;"></div>`);
+    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[index]}>`);
     $overlay.append($image);
-    var $text = $(`<div class="mask flex-center rgba-blue-strong w-auto h-auto overflow-auto"></div>`);
+    var $text = $(`<div class="mask flex-center rgba-blue-strong w-auto h-auto overflow-auto">`);
     $text.append(`<p class="white-text bg-transparent">${overviews[index]}</p>`);
     $overlay.append($text);
-    var $cardBody = $(`<div class="card-body"></div>`);
+    var $cardBody = $(`<div class="card-body">`);
     $cardBody.append($overlay);
     $cardBody.append(`<h5 class="card-title">${titles[index]}</h5>`);
     $cardItem.append($cardBody);
