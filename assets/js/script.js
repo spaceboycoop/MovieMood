@@ -23,6 +23,8 @@ const face_api_key = '1164a87de384422aaa3ca0e1ee7c6f3d';
 const moviedb_baseurl = 'https://api.themoviedb.org/3';
 const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0';
 
+var voteAverages = [];
+
 let faceData;
 let img_url;
 
@@ -48,6 +50,7 @@ const getMovieCard = function(movie) {
     let $overlay = $(`<div class="view overlay">`);
     let $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
     let $image = $(`<img class="card-img-top gif mb-3 img-fluid" src="https://image.tmdb.org/t/p/original${movie.poster_path}">`);
+    $image.css('height', '300px');
     $overlay.append($image);
     let $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
     $text.append(`<p class="white-text p-2 align-middle bg-transparent">${movie.overview}</p>`);
@@ -57,7 +60,10 @@ const getMovieCard = function(movie) {
     $cardBody.append($overlay);
     $cardBody.append(`<h5 class="card-title">${movie.title}</h5>`);
     $cardItem.append($cardBody);
-
+    var $cardFooter = $('<div class="card-footer">');
+    var $vote = $(`<small class-"text-muted bg-transparent">Vote Average ${movie.vote_averages}<small>`)
+    $cardFooter.append($vote);
+    $cardItem.append($cardFooter);
     return $cardItem;
 };
 
