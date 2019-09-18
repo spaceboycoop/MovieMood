@@ -15,6 +15,12 @@ $('#fileButton').on('click', openDialog);
 function openDialog() {
     img_url = $('#file').click();
 }
+
+$('#fileButton').on('click', openDialog);
+
+function openDialog() {
+    img_url = $('#file').click();
+}
 // --- GENRE OPTIONS ---
 // Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History,
 // Horror, Music, Mystery, Romance, Science, Fiction, TV Movie, Thriller, War, Western
