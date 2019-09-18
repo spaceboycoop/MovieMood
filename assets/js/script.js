@@ -26,6 +26,7 @@ const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/
 var titles = [];
 var poster = [];
 var overviews = [];
+var voteAverages = [];
 
 let faceData;
 let img_url;
@@ -50,6 +51,7 @@ const getCardItem = function(i) {
     var $overlay = $(`<div class="view overlay">`);
     var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
+    $image.css('height', '300px');
     $overlay.append($image);
     var $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
     $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[i]}</p>`);
@@ -59,7 +61,10 @@ const getCardItem = function(i) {
     $cardBody.append($overlay);
     $cardBody.append(`<h5 class="card-title">${titles[i]}</h5>`);
     $cardItem.append($cardBody);
-
+    var $cardFooter = $('<div class="card-footer">');
+    var $vote = $(`<small class-"text-muted bg-transparent">Vote Average ${voteAverages[i]}<small>`)
+    $cardFooter.append($vote);
+    $cardItem.append($cardFooter);
     return $cardItem;
 };
 
@@ -107,10 +112,12 @@ const getMovieData = function(genre1, genre2) {
             "data": "{}"
         })
         .done(response => {
+            console.log(response);
             response.results.forEach((result, i) => {
                 overviews.push(result.overview);
                 titles.push(result.title);
                 poster.push(`https://image.tmdb.org/t/p/original${result.poster_path}`);
+                voteAverages.push(result.vote_average);
                 $('#movies').append(getCardItem(i));
             });
         });
