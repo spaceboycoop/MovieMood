@@ -41,7 +41,27 @@ $(document).ready(function() {
     alt="Responsive image" id="image">`);
         getFaceData(img_url);
     });
+
+    getMovieData('Horror','Romance');
 });
+
+const getCardItem = function(i) {
+    console.log('getCardItem');
+    var $overlay = $(`<div class="view overlay">`);
+    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
+    var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
+    $overlay.append($image);
+    var $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
+    $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[i]}</p>`);
+    $text.css('height', '300px');
+    $overlay.append($text);
+    var $cardBody = $(`<div class="card-body">`);
+    $cardBody.append($overlay);
+    $cardBody.append(`<h5 class="card-title">${titles[i]}</h5>`);
+    $cardItem.append($cardBody);
+
+    return $cardItem;
+};
 
 const getMovieData = function(genre1, genre2) {
     let endpoint = 'genre/movie/list';
@@ -52,7 +72,7 @@ const getMovieData = function(genre1, genre2) {
     $.ajax({
         "async": true,
         "crossDomain": true,
-        "url": `${moviedb_baseurl}/${endpoint}?${$.params(params)}`,
+        "url": `${moviedb_baseurl}/${endpoint}?${$.param(params)}`,
         "method": "GET",
         "headers": {},
         "data": "{}"
@@ -87,7 +107,6 @@ const getMovieData = function(genre1, genre2) {
             "data": "{}"
         })
         .done(response => {
-            console.log(response);
             response.results.forEach((result, i) => {
                 overviews.push(result.overview);
                 titles.push(result.title);
@@ -97,25 +116,6 @@ const getMovieData = function(genre1, genre2) {
         });
     });
 };
-
-const getCardItem = function(i) {
-    var $overlay = $(`<div class="view overlay">`);
-    var $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
-    var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[i]}>`);
-    $overlay.append($image);
-    var $text = $(`<div class="mask rgba-cyan-strong overflow-auto">`);
-    $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[i]}</p>`);
-    $text.css('height', '300px');
-    $overlay.append($text);
-    var $cardBody = $(`<div class="card-body">`);
-    $cardBody.append($overlay);
-    $cardBody.append(`<h5 class="card-title">${titles[i]}</h5>`);
-    $cardItem.append($cardBody);
-
-    return $cardItem;
-};
-
-let faceData;
 
 const getFaceData = function(source_url) {
     const endpoint = 'detect';
