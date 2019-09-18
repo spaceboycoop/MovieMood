@@ -69,8 +69,9 @@ const getCardItem = function (index) {
     var $cardItem = $(`<div class="card mr-3" style="width: 15rem;"></div>`);
     var $image = $(`<img class="card-img-top gif mb-3 img-fluid" src=${poster[index]}>`);
     $overlay.append($image);
-    var $text = $(`<div class="mask flex-center rgba-blue-strong w-auto h-auto overflow-auto"></div>`);
-    $text.append(`<p class="white-text bg-transparent">${overviews[index]}</p>`);
+    var $text = $(`<div class="mask rgba-cyan-strong overflow-auto"></div>`);
+    $text.append(`<p class="white-text p-2 align-middle bg-transparent">${overviews[index]}</p>`);
+    $text.css('height', '300px');
     $overlay.append($text);
     var $cardBody = $(`<div class="card-body"></div>`);
     $cardBody.append($overlay);
