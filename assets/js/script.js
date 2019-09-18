@@ -49,7 +49,7 @@ const getMovieData = (genre1, genre2) => {
                 genre2 = genre.id;
             }
         });
-
+        
         console.log(response);
         
         let endpoint = 'discover/movie';
@@ -63,7 +63,7 @@ const getMovieData = (genre1, genre2) => {
             api_key: moviedb_api_key
         };
         $.ajax({
-            "url": `${baseURL}/${endpoint}?${$.param(params)}`,
+            "url": `${moviedb_baseurl}/${endpoint}?${$.param(params)}`,
             "async": true,
             "crossDomain": true,
             "method": "GET",
