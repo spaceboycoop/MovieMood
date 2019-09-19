@@ -104,7 +104,7 @@ const getMovieData = function (genre1, genre2) {
 const getFaceData = function (e) {
     const $loading = $('<img src = "./assets/img/loading.gif"/>');
     $loading.css('width','50%');
-    $('#movies').append($loading);
+    $('#movies').html($loading);
     const endpoint = 'detect';
     var imageFile = e.target.files[0];
     $('.imageHolder').html($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
@@ -138,86 +138,83 @@ const getFaceData = function (e) {
                 let neutral = emotion.neutral / 2;
                 let sadness = emotion.sadness * 2;
                 let surprise = emotion.surprise * 2;
-
-                $('#char').html(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+                const genre2Select = function () {
+                    if (data[0].faceAttributes.accessories.length !== 0) {
+                        if (data[0].faceAttributes.accessories[0].type === 'headwear') {
+                            genre2 = 'Western';
+                            return;
+                        }
+                    }
+                    if (data[0].faceAttributes.facialHair.moustache > 0.8
+                        || data[0].faceAttributes.facialHair.beard > 0.8) {
+                        genre2 = 'History';
+                    } else if (happiness === strongest) {
+                        genre2 = 'Comedy';
+                    } else if (sadness === strongest) {
+                        genre2 = 'Drama';
+                    } else if (fear === strongest) {
+                        genre2 = 'Horror';
+                    } else if (surprise === strongest) {
+                        genre2 = 'Thriller';
+                    } else if (contempt === strongest) {
+                        genre2 = 'Crime';
+                    } else if (anger === strongest) {
+                        genre2 = 'War';
+                    } else if (neutral === strongest) {
+                        genre2 = 'Mystery';
+                    } else genre2 = 'Family';
+                };
                 let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
                 let strongest = Math.max.apply(null, emotions);
                 let age = data[0].faceAttributes.age;
+                if (age < 8) {
+                    genre1 = 'Animation';
+                    genre2 = 'Family';
+                }
+                if (age >= 8 && age < 13) {
+                    genre1 = 'Animation';
+                    if (data[0].faceAttributes.accessories.length !== 0) {
+                        if (data[0].faceAttributes.accessories[0].type === 'headwear') {
+                            genre2 = 'Western';
+                        } else
+                            genre2 = 'Science Fiction'
+                    } else if (happiness === strongest) {
+                        genre2 = 'Comedy';
+                    } else if (sadness === strongest) {
+                        genre2 = 'Drama';
+                    } else if (fear === strongest) {
+                        genre2 = 'Adventure';
+                    } else if (surprise === strongest) {
+                        genre2 = 'Fantasy';
+                    } else if (contempt === strongest) {
+                        genre2 = 'Music';
+                    } else if (anger === strongest) {
+                        genre2 = 'War';
+                    } else if (neutral === strongest) {
+                        genre2 = 'Mystery';
+                    } else genre2 = 'Family';
+                } else if (data[0].faceAttributes.glasses === "ReadingGlasses") {
+                    genre1 = 'Science Fiction';
+                    genre2Select();
+                } else if (age >= 13 && age < 18) {
+                    genre1 = 'Action';
+                    genre2Select();
+                } else if (age >= 18 && age < 30) {
+                    genre1 = 'Adventure'
+                    genre2Select();
+                } else if (age >= 30 && age < 45) {
+                    genre1 = 'Romance';
+                    genre2Select();
+                } else if (age >= 45 && age < 65) {
+                    genre1 = 'Adventure';
+                    genre2Select();
+                } else if (age >= 65) {
+                    genre1 = 'Documentary';
+                    genre2Select();
+                }
             } else {
                 $('#movies').html($('<div>').text('No Faces Detected, Try again'));
             }
-            const genre2Select = function () {
-                if (data[0].faceAttributes.accessories.length !== 0) {
-                    if (data[0].faceAttributes.accessories[0].type === 'headwear') {
-                        genre2 = 'Western';
-                        return;
-                    }
-                }
-                if (data[0].faceAttributes.facialHair.moustache > 0.8
-                    || data[0].faceAttributes.facialHair.beard > 0.8) {
-                    genre2 = 'History';
-                } else if (happiness === strongest) {
-                    genre2 = 'Comedy';
-                } else if (sadness === strongest) {
-                    genre2 = 'Drama';
-                } else if (fear === strongest) {
-                    genre2 = 'Horror';
-                } else if (surprise === strongest) {
-                    genre2 = 'Thriller';
-                } else if (contempt === strongest) {
-                    genre2 = 'Crime';
-                } else if (anger === strongest) {
-                    genre2 = 'War';
-                } else if (neutral === strongest) {
-                    genre2 = 'Mystery';
-                } else genre2 = 'Family';
-            };
-            if (age < 8) {
-                genre1 = 'Animation';
-                genre2 = 'Family';
-            }
-            if (age >= 8 && age < 13) {
-                genre1 = 'Animation';
-                if (data[0].faceAttributes.accessories.length !== 0) {
-                    if (data[0].faceAttributes.accessories[0].type === 'headwear') {
-                        genre2 = 'Western';
-                    } else
-                        genre2 = 'Science Fiction'
-                } else if (happiness === strongest) {
-                    genre2 = 'Comedy';
-                } else if (sadness === strongest) {
-                    genre2 = 'Drama';
-                } else if (fear === strongest) {
-                    genre2 = 'Adventure';
-                } else if (surprise === strongest) {
-                    genre2 = 'Fantasy';
-                } else if (contempt === strongest) {
-                    genre2 = 'Music';
-                } else if (anger === strongest) {
-                    genre2 = 'War';
-                } else if (neutral === strongest) {
-                    genre2 = 'Mystery';
-                } else genre2 = 'Family';
-            } else if (data[0].faceAttributes.glasses === "ReadingGlasses") {
-                genre1 = 'Science Fiction';
-                genre2Select();
-            } else if (age >= 13 && age < 18) {
-                genre1 = 'Action';
-                genre2Select();
-            } else if (age >= 18 && age < 30) {
-                genre1 = 'Adventure'
-                genre2Select();
-            } else if (age >= 30 && age < 45) {
-                genre1 = 'Romance';
-                genre2Select();
-            } else if (age >= 45 && age < 65) {
-                genre1 = 'Adventure';
-                genre2Select();
-            } else if (age >= 65) {
-                genre1 = 'Documentary';
-                genre2Select();
-            }
-            // $('#char').append(`<h3>Your Movie types:${genre1},${genre2}</h3>`);
             getMovieData(genre1, genre2);
             faceData = data;
         })
