@@ -9,8 +9,7 @@
 
 .headerRow {
     margin:0;
-    color:white;
-    font-weight: bold;
+    color:black;
 }
 
 #header h1 {
@@ -26,6 +25,10 @@
 }
 
 #image {
+    width:100%;
+}
+
+#plusButton {
     width:100%;
 }
 
@@ -51,9 +54,7 @@
 }
 
 .jumbotron {
-    background-image: url('../img/emo.jpg');
     background-size: cover;
-    min-height: 190px;
 }
 
 #header {
