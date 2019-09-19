@@ -69,7 +69,12 @@
     max-height:100%;
 }
 
+#movies.card-deck .card {
+    flex: auto;
+    flex-grow: 0;
+}
+
 #movies {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }

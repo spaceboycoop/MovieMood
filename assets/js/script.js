@@ -31,7 +31,7 @@ $(document).ready(function () {
 
 const getMovieCard = function (movie) {
     let $overlay = $(`<div class="view overlay">`);
-    let $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
+    let $cardItem = $(`<div class="card m-3" style="width: 15rem;">`);
     let $image = $(`<img class="card-img-top gif mb-3 img-fluid" src="https://image.tmdb.org/t/p/original${movie.poster_path}">`);
     $image.css('height', '300px');
     $overlay.append($image);
