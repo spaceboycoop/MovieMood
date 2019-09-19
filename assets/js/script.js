@@ -18,8 +18,10 @@ $(document).ready(function () {
 
     $('#submit').click(function () {
         img_url = $('#imageURL').val();
-        $('.imageHolder').html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
-    alt="Responsive image" id="image">`);
+        $('#image').attr('src',`${img_url}`);
+    //     html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
+    // alt="Responsive image" id="image">`);
+        
         getFaceData(img_url);
     });
 
