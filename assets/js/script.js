@@ -128,23 +128,24 @@ const getFaceData = function (e) {
         data: imageFile
     })
         .then(function (data) {
-            console.log(data);
+            if (data.length) {
+                let emotion = data[0].faceAttributes.emotion;
+                let anger = emotion.anger * 2;
+                let contempt = emotion.contempt * 2;
+                let disgust = emotion.disgust;
+                let fear = emotion.fear * 2;
+                let happiness = emotion.happiness;
+                let neutral = emotion.neutral / 2;
+                let sadness = emotion.sadness * 2;
+                let surprise = emotion.surprise * 2;
 
-            let emotion = data[0].faceAttributes.emotion;
-            let anger = emotion.anger * 2;
-            let contempt = emotion.contempt * 2;
-            let disgust = emotion.disgust;
-            let fear = emotion.fear * 2;
-            let happiness = emotion.happiness;
-            let neutral = emotion.neutral / 2;
-            let sadness = emotion.sadness * 2;
-            let surprise = emotion.surprise * 2;
-
-            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
-            let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
-            let strongest = Math.max.apply(null, emotions);
-            let age = data[0].faceAttributes.age;
-
+                $('#char').html(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+                let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
+                let strongest = Math.max.apply(null, emotions);
+                let age = data[0].faceAttributes.age;
+            } else {
+                $('#movies').append($('<div>').text('No Faces Detected, Try again'));
+            }
             const genre2Select = function () {
                 if (data[0].faceAttributes.accessories.length !== 0) {
                     if (data[0].faceAttributes.accessories[0].type === 'headwear') {
@@ -170,7 +171,7 @@ const getFaceData = function (e) {
                 } else if (neutral === strongest) {
                     genre2 = 'Mystery';
                 } else genre2 = 'Family';
-            }
+            };
             if (age < 8) {
                 genre1 = 'Animation';
                 genre2 = 'Family';
