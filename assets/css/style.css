@@ -13,6 +13,10 @@
     font-weight: bold;
 }
 
+#header {
+    height: 150px;
+}
+
 /* #header h1 {
 
 } */
@@ -64,6 +68,10 @@
 
 .headerRow{
     background-color:transparent;
+}
+
+#imageInput {
+    width: 90%;
 }
 
 .imageHolder img {
