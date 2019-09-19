@@ -2,6 +2,7 @@
     background-color: white;
     position:relative;
 }
+
 .container-fluid{
     height:20vh;
 }
@@ -10,6 +11,14 @@
     margin:0;
     color:white;
     font-weight: bold;
+}
+
+#header h1 {
+    font-size: 60px;
+}
+
+#header p {
+ font-size: 40px;
 }
 
 .mainContent {
@@ -36,8 +45,15 @@
     color:white
 }
 
+.page-footer img {
+    width: 30px;
+    height: auto;
+}
+
 .jumbotron {
-    background-color:dodgerblue;
+    background-image: url('../img/emo.jpg');
+    background-size: cover;
+    min-height: 190px;
 }
 
 #header {
@@ -45,6 +61,6 @@
 }
 
 .headerRow{
-    background-color: dodgerblue;
+    background-color:transparent;
 }
 
