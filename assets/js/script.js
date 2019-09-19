@@ -18,10 +18,9 @@ $(document).ready(function () {
         img_url = $('#file').click();
     });
 
-    $('#submit').click(function () {
+    $('#imageInput').click(function () {
         img_url = $('#imageURL').val();
-        $('.imageHolder').html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
-    alt="Responsive image" id="image">`);
+        $('#image').html(`<img src="${img_url}">`);
         getFaceData(img_url);
     });
 
@@ -102,7 +101,6 @@ const getMovieData = function (genre1, genre2) {
 const getFaceData = function (e) {
     const endpoint = 'detect';
     var imageFile = e.target.files[0];
-    $('.imageHolder').append($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
