@@ -144,7 +144,7 @@ const getFaceData = function (e) {
                 let strongest = Math.max.apply(null, emotions);
                 let age = data[0].faceAttributes.age;
             } else {
-                $('#movies').append($('<div>').text('No Faces Detected, Try again'));
+                $('#movies').html($('<div>').text('No Faces Detected, Try again'));
             }
             const genre2Select = function () {
                 if (data[0].faceAttributes.accessories.length !== 0) {
