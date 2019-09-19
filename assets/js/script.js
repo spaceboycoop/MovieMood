@@ -17,6 +17,7 @@ $(document).ready(function () {
     });
 
     $('#submit').click(function () {
+
         img_url = $('#imageURL').val();
         $('#image').attr('src',`${img_url}`);
     //     html(`<img src="${img_url}" class="img-thumbnail shadow p-3 mb-4 bg-white rounded"
@@ -30,7 +31,7 @@ $(document).ready(function () {
 
 const getMovieCard = function (movie) {
     let $overlay = $(`<div class="view overlay">`);
-    let $cardItem = $(`<div class="card mr-3" style="width: 15rem;">`);
+    let $cardItem = $(`<div class="card m-3" style="width: 15rem;">`);
     let $image = $(`<img class="card-img-top gif mb-3 img-fluid" src="https://image.tmdb.org/t/p/original${movie.poster_path}">`);
     $image.css('height', '300px');
     $overlay.append($image);
@@ -101,6 +102,9 @@ const getMovieData = function (genre1, genre2) {
 };
 
 const getFaceData = function (e) {
+    const $loading = $('<img src = "./assets/img/loading.gif"/>');
+    $loading.css('width','50%');
+    $('#movies').append($loading);
     const endpoint = 'detect';
     var imageFile = e.target.files[0];
     $('.imageHolder').html($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
