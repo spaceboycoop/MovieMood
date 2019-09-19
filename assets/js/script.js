@@ -217,7 +217,7 @@ const getFaceData = function (e) {
                 genre1 = 'Documentary';
                 genre2Select();
             }
-            $('#char').append(`<h1>Test:${genre1},${genre2}</h1>`);
+            // $('#char').append(`<h3>Your Movie types:${genre1},${genre2}</h3>`);
             getMovieData(genre1, genre2);
             faceData = data;
         })

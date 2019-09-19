@@ -8,14 +8,14 @@
 }
 
 .headerRow {
-    margin:0;
+    margin-top:2%;
     color:white;
     font-weight: bold;
 }
 
-#header h1 {
-    font-size: 60px;
-}
+/* #header h1 {
+
+} */
 
 #header p {
  font-size: 40px;
@@ -54,6 +54,8 @@
     background-image: url('../img/emo.jpg');
     background-size: cover;
     min-height: 190px;
+    background-blend-mode: color;
+    background-color:rgba(0,0,0,0.2) !important;
 }
 
 #header {
