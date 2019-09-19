@@ -43,7 +43,7 @@ const getMovieCard = function (movie) {
     $cardBody.append(`<h5 class="card-title">${movie.title}</h5>`);
     $cardItem.append($cardBody);
     var $cardFooter = $('<div class="card-footer">');
-    var $vote = $(`<small class-"text-muted bg-transparent">Vote Average ${movie.vote_averages}<small>`)
+    var $vote = $(`<small class="text-muted bg-transparent">Vote Average ${movie.vote_averages}<small>`)
     $cardFooter.append($vote);
     $cardItem.append($cardFooter);
     return $cardItem;
@@ -91,6 +91,7 @@ const getMovieData = function (genre1, genre2) {
                 "data": "{}"
             })
                 .done(response => {
+                    $('#movies').empty();
                     response.results.forEach((result, i) => {
                         $('#movies').append(getMovieCard(result));
                     });
@@ -102,7 +103,7 @@ const getMovieData = function (genre1, genre2) {
 const getFaceData = function (e) {
     const endpoint = 'detect';
     var imageFile = e.target.files[0];
-    $('.imageHolder').append($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
+    $('.imageHolder').html($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
