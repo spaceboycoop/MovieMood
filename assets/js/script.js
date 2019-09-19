@@ -101,7 +101,8 @@ const getMovieData = function (genre1, genre2) {
 
 const getFaceData = function (e) {
     const endpoint = 'detect';
-    $('.imageHolder').append(`<img src="${URL.createObjectURL(e.target.files[0])}">`);
+    var imageFile = e.target.files[0];
+    $('.imageHolder').append($(`<img src="${URL.createObjectURL(e.target.files[0])}" alt="uploaded">`));
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
