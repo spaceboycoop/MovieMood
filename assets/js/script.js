@@ -133,7 +133,7 @@ const getFaceData = function (e) {
             let sadness = data[0].faceAttributes.emotion.sadness * 2;
             let surprise = data[0].faceAttributes.emotion.surprise * 2;
 
-            $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+            $('#char').append(`<h4>Age : ${data[0].faceAttributes.age}</h4>`);
             let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
             let strongest = Math.max.apply(null, emotions);
             let age = data[0].faceAttributes.age;
@@ -209,7 +209,7 @@ const getFaceData = function (e) {
                 genre1 = 'Documentary';
                 genre2Select();
             }
-            $('#char').append(`<h1>Test:${genre1},${genre2}</h1>`);
+            $('#char').append(`<h4>Test:${genre1},${genre2}</h4>`);
             getMovieData(genre1, genre2);
             faceData = data;
         })
