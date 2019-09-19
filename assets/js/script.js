@@ -124,14 +124,15 @@ const getFaceData = function (e) {
         .then(function (data) {
             console.log(data);
 
-            let anger = data[0].faceAttributes.emotion.anger * 2;
-            let contempt = data[0].faceAttributes.emotion.contempt * 2;
-            let disgust = data[0].faceAttributes.emotion.disgust;
-            let fear = data[0].faceAttributes.emotion.fear * 2;
-            let happiness = data[0].faceAttributes.emotion.happiness;
-            let neutral = data[0].faceAttributes.emotion.neutral / 2;
-            let sadness = data[0].faceAttributes.emotion.sadness * 2;
-            let surprise = data[0].faceAttributes.emotion.surprise * 2;
+            let emotion = data[0].faceAttributes.emotion;
+            let anger = emotion.anger * 2;
+            let contempt = emotion.contempt * 2;
+            let disgust = emotion.disgust;
+            let fear = emotion.fear * 2;
+            let happiness = emotion.happiness;
+            let neutral = emotion.neutral / 2;
+            let sadness = emotion.sadness * 2;
+            let surprise = emotion.surprise * 2;
 
             $('#char').append(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
             let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
