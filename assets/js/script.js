@@ -8,8 +8,6 @@ const face_api_key = '1164a87de384422aaa3ca0e1ee7c6f3d';
 const moviedb_baseurl = 'https://api.themoviedb.org/3';
 const faceapi_baseurl = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0';
 
-var voteAverages = [];
-
 let faceData;
 let img_url;
 
@@ -43,7 +41,7 @@ const getMovieCard = function (movie) {
     $cardBody.append(`<h5 class="card-title">${movie.title}</h5>`);
     $cardItem.append($cardBody);
     var $cardFooter = $('<div class="card-footer">');
-    var $vote = $(`<small class="text-muted bg-transparent">Vote Average ${movie.vote_averages}<small>`)
+    var $vote = $(`<small class="text-muted bg-transparent">Vote Average ${movie.vote_average}<small>`)
     $cardFooter.append($vote);
     $cardItem.append($cardFooter);
     return $cardItem;
