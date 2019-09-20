@@ -1,10 +1,10 @@
 * {
     background-color: white;
-    position:relative;
+
 }
 
 .container-fluid{
-    height:20vh;
+
 }
 
 .headerRow {
@@ -46,7 +46,13 @@
     height:10vh;
     text-align: center;
     background-color:dodgerblue;
-    color:white
+    color:white;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .page-footer img {
@@ -57,7 +63,7 @@
 .jumbotron {
     background-image: url('../img/emo.jpg');
     background-size: cover;
-    min-height: 190px;
+    min-height: 150px;
     background-blend-mode: color;
     background-color:rgba(0,0,0,0.2) !important;
 }
