@@ -139,7 +139,7 @@ const getFaceData = function (e) {
                 let sadness = emotion.sadness * 2;
                 let surprise = emotion.surprise * 2;
 
-                $('#char').html(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
+                // $('#char').html(`<h1>Age : ${data[0].faceAttributes.age}</h1>`);
                 let emotions = [anger, contempt, disgust, fear, happiness, neutral, sadness, surprise];
                 let strongest = Math.max.apply(null, emotions);
                 let age = data[0].faceAttributes.age;
